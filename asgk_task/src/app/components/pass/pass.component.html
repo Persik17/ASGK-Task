@@ -17,8 +17,44 @@
     </div>
     <div class="col">
       <div class="p-3">
-        <button class="btn btn-primary m-2">Push</button>
+        <button class="btn btn-primary m-2" (click)="onOpen(content)">
+          Push
+        </button>
       </div>
     </div>
   </div>
 </div>
+
+<ng-template #content let-c="close" let-d="dismiss">
+  <div class="modal-header">
+    <h4 class="modal-title" id="modal-basic-title">
+      Message to {{ pass.fio }}
+    </h4>
+    <button
+      type="button"
+      class="btn-close"
+      aria-label="Close"
+      (click)="d('Cross click')"
+    ></button>
+  </div>
+  <div class="modal-body">
+    <p>Enter a message and select date for the client!</p>
+    <input type="date" class="m-1" [(ngModel)]="datePush" />
+    <div class="input-group">
+      <textarea [(ngModel)]="messageText" class="form-control"></textarea>
+    </div>
+  </div>
+  <div class="modal-footer">
+    <button
+      [disabled]="!messageText"
+      type="button"
+      class="btn btn-primary"
+      (click)="onPushMessage()"
+    >
+      Save
+    </button>
+    <button type="button" class="btn btn-secondary" (click)="d('Cross click')">
+      Close
+    </button>
+  </div>
+</ng-template>

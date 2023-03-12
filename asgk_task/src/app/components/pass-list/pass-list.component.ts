@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 
-import { Pass } from '../../models';
+import { Message, Pass } from '../../models';
 
 import { PassService } from '../../services';
 
@@ -20,6 +20,11 @@ export class PassListComponent implements OnInit {
 
   ngOnInit(): void {
     this.passService.getPasses().subscribe((data) => (this.passes$ = data));
+  }
+
+  pushMessage(message: Message): void {
+    this.passService.pushMessage(message);
+    console.log(message);
   }
 
   onSort() {

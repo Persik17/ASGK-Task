@@ -5,7 +5,7 @@ import { catchError, map, Observable, of, tap } from 'rxjs';
 
 import { environment } from 'src/environments/environment';
 
-import { Pass, Meta } from '../models';
+import { Pass, Meta, Message } from '../models';
 
 import { LocalStorageService } from '.';
 
@@ -28,6 +28,15 @@ export class PassService {
       tap((_) => console.log('fetched passes')),
       catchError(this.handleError<Pass[]>('getPasses', []))
     );
+  }
+
+  pushMessage(mess: Message) {
+    let url =
+      this.baseUrl + '/' + this.storageService.getToken() + '/message/push';
+
+    return this.http
+      .post<Message>(url, mess)
+      .pipe(catchError(this.handleError<Message[]>('pushMessage', [])));
   }
 
   private handleError<T>(operation = 'operation', result?: T) {

@@ -11,16 +11,16 @@
           placeholder="Enter text to search"
         />
       </div>
-
+    </div>
+    <div class="col-1">
       <button
         type="button"
         (click)="onClearFilter()"
-        class="btn btn-primary m-1"
+        class="btn btn-primary m-2"
       >
         Clear
       </button>
     </div>
-
     <div class="col-2 m-2">
       <select [(ngModel)]="sortByParam">
         <option value="" disabled selected>select the field to sort</option>
@@ -35,8 +35,13 @@
         <option value="bonus">bonus</option>
         <option value="summ_all">summ_all</option>
       </select>
-
-      <button type="button" class="btn btn-primary m-1" (click)="onSort()">
+    </div>
+    <div class="col-1">
+      <button
+        type="button"
+        class="btn btn-outline-primary m-2"
+        (click)="onSort()"
+      >
         <i *ngIf="sortDirection === 'asc'" class="fa-solid fa-caret-up"></i>
         <i *ngIf="sortDirection === 'desc'" class="fa-solid fa-caret-down"></i>
       </button>
@@ -60,7 +65,10 @@
         "
       >
         <li>
-          <app-pass [pass]="pass"></app-pass>
+          <app-pass
+            (onPushMessageEvent)="pushMessage($event)"
+            [pass]="pass"
+          ></app-pass>
         </li>
       </ul>
     </div>
