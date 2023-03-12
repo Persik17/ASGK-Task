@@ -1,0 +1,68 @@
+<div class="card m-1">
+  <div class="row text-center">
+    <div class="col-4 m-2">
+      <div class="form-group">
+        <input
+          type="text"
+          class="form-control"
+          id="search-text"
+          aria-describedby="search-text"
+          [(ngModel)]="searchText"
+          placeholder="Enter text to search"
+        />
+      </div>
+
+      <button
+        type="button"
+        (click)="onClearFilter()"
+        class="btn btn-primary m-1"
+      >
+        Clear
+      </button>
+    </div>
+
+    <div class="col-2 m-2">
+      <select [(ngModel)]="sortByParam">
+        <option value="" disabled selected>select the field to sort</option>
+        <option value="first_name">first_name</option>
+        <option value="last_name">last_name</option>
+        <option value="pat_name">pat_name</option>
+        <option value="email">email</option>
+        <option value="birthday">birthday</option>
+        <option value="gender">gender</option>
+        <option value="created_at">created_at</option>
+        <option value="car_number">car_number</option>
+        <option value="bonus">bonus</option>
+        <option value="summ_all">summ_all</option>
+      </select>
+
+      <button type="button" class="btn btn-primary m-1" (click)="onSort()">
+        <i *ngIf="sortDirection === 'asc'" class="fa-solid fa-caret-up"></i>
+        <i *ngIf="sortDirection === 'desc'" class="fa-solid fa-caret-down"></i>
+      </button>
+    </div>
+  </div>
+</div>
+
+<div class="row">
+  <div class="card shadow-lg">
+    <div style="position: absolute; left: 100px">
+      <p>List of passes</p>
+    </div>
+    <div class="mb-lg-3 m-5">
+      <ul
+        class="list-group-item m-3"
+        style="list-style-type: none"
+        *ngFor="
+          let pass of passes$
+            | search : searchText
+            | sort : [sortByParam, sortDirection]
+        "
+      >
+        <li>
+          <app-pass [pass]="pass"></app-pass>
+        </li>
+      </ul>
+    </div>
+  </div>
+</div>
